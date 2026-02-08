@@ -26,7 +26,6 @@
         backdrop-filter: blur(12px);
         z-index: 2;
         max-width: 500px;
-        transition: all 0.5s ease;
     }
 
     h1 {
@@ -47,12 +46,10 @@
         cursor: pointer;
         margin: 10px;
         transition: transform 0.2s, background 0.3s;
-        position: relative;
     }
 
     .yes1 { background-color: #ff4b5c; color: white; }
     .yes2 { background-color: #ff85a2; color: white; }
-    .no { background-color: #aaa; color: white; }
 
     button:hover {
         transform: scale(1.15);
@@ -72,7 +69,6 @@
         font-size: 24px;
         animation: floatUp 6s linear infinite;
         opacity: 0.8;
-        z-index: 1;
     }
 
     @keyframes floatUp {
@@ -83,30 +79,22 @@
 </head>
 <body>
 
-<div class="card" id="card">
+<div class="card">
     <h1>Sampada 💖</h1>
     <p>Will you be my Valentine? 🥺🌹</p>
     <button class="yes1" onclick="startLove()">Yes 😘</button>
     <button class="yes2" onclick="startLove()">Obviously Yes 💍</button>
-    <button class="no" id="noBtn">No 😳</button>
     <div id="loveMessage"></div>
 </div>
 
-<!-- YouTube background music -->
-<iframe id="ytplayer" width="0" height="0"
-src="https://www.youtube.com/embed/2Vv-BfVoq4g?enablejsapi=1&loop=1&playlist=2Vv-BfVoq4g"
-frameborder="0" allow="autoplay"></iframe>
+<!-- Background music -->
+<audio id="bgMusic" loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+</audio>
 
-<script src="https://www.youtube.com/iframe_api"></script>
 <script>
-let player;
-function onYouTubeIframeAPIReady() {
-    player = new YT.Player('ytplayer');
-}
-
-const message = "Sampada… 🥰 From the moment you came into my life, everything became softer, brighter, and happier 💖 You are my favorite smile, my safest place, and my sweetest forever 💍✨ I promise endless love, laughter, and hugs that last a lifetime 🤗❤️";
+const message = "Yayyy Sampada!!! 🥰💞 You just made my heart explode with happiness 💖✨ I promise endless hugs, silly jokes, late night talks, and a lifetime of love ❤️🌙";
 let index = 0;
-let started = false;
 
 function typeWriter() {
     if (index < message.length) {
@@ -117,37 +105,31 @@ function typeWriter() {
 }
 
 function startLove() {
-    if (started) return;
-    started = true;
+    const music = document.getElementById("bgMusic");
+
+    // Reset message if button pressed again
+    document.getElementById("loveMessage").innerHTML = "";
+    index = 0;
+
+    // Start song from 20 seconds
+    music.currentTime = 20;
+    music.play();
 
     typeWriter();
-    document.getElementById("card").style.transform = "scale(1.05)";
-    document.getElementById("card").style.boxShadow = "0 0 40px rgba(255,255,255,0.6)";
-
-    if(player) player.playVideo(); // Start YouTube music
 }
 
-// Floating hearts
+// Floating hearts generator
 setInterval(() => {
     const heart = document.createElement("div");
     heart.classList.add("heart");
-    heart.innerHTML = ["💖","💘","💕","💝"][Math.floor(Math.random()*4)];
+    heart.innerHTML = ["💖","💘","💝","💕"][Math.floor(Math.random()*4)];
     heart.style.left = Math.random() * 100 + "vw";
     heart.style.fontSize = (Math.random() * 20 + 20) + "px";
     heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
     document.body.appendChild(heart);
+
     setTimeout(() => heart.remove(), 6000);
 }, 300);
-
-// Runaway No button
-const noBtn = document.getElementById("noBtn");
-noBtn.addEventListener("mouseenter", () => {
-    const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-    const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
-    noBtn.style.position = "absolute";
-    noBtn.style.left = x + "px";
-    noBtn.style.top = y + "px";
-});
 </script>
 
 </body>
