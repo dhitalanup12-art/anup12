@@ -82,26 +82,12 @@ button:hover { transform: scale(1.15); }
     <div id="loveMessage"></div>
 </div>
 
-<!-- Hidden YouTube Player -->
-<div id="player" style="display:none;"></div>
+<!-- Romantic Instrumental Music -->
+<audio id="bgMusic" loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8a4c0a6a3.mp3?filename=romantic-background-112191.mp3" type="audio/mpeg">
+</audio>
 
-<script src="https://www.youtube.com/iframe_api"></script>
 <script>
-let player;
-
-function onYouTubeIframeAPIReady() {
-    player = new YT.Player('player', {
-        height: '0',
-        width: '0',
-        videoId: '2Vv-BfVoq4g', // Ed Sheeran - Perfect
-        playerVars: {
-            autoplay: 0,
-            controls: 0,
-            start: 20
-        }
-    });
-}
-
 const message = "Yayyy Sampada!!! 🥰💞 You just made my heart explode with happiness 💖✨ I promise endless hugs, silly jokes, late night talks, and a lifetime of love ❤️🌙";
 let index = 0;
 
@@ -114,10 +100,11 @@ function typeWriter() {
 }
 
 function startLove() {
+    const music = document.getElementById("bgMusic");
+    music.play().catch(() => {});
     document.getElementById("loveMessage").innerHTML = "";
     index = 0;
     typeWriter();
-    if (player) player.playVideo();
 }
 
 // Runaway No button
