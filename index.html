@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>My Valentine Sampada ❤️</title>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        font-family: 'Comic Sans MS', cursive, sans-serif;
+        background: linear-gradient(135deg, #ff758c, #ff7eb3);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        text-align: center;
+        color: white;
+    }
+
+    .card {
+        background: rgba(255, 255, 255, 0.15);
+        padding: 40px;
+        border-radius: 25px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+        backdrop-filter: blur(12px);
+        z-index: 2;
+        max-width: 500px;
+        transition: all 0.5s ease;
+    }
+
+    h1 {
+        font-size: 2.7em;
+        margin-bottom: 10px;
+    }
+
+    p {
+        font-size: 1.3em;
+        margin-bottom: 25px;
+    }
+
+    button {
+        padding: 12px 28px;
+        font-size: 1.1em;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        margin: 10px;
+        transition: transform 0.2s, background 0.3s;
+        position: relative;
+    }
+
+    .yes1 { background-color: #ff4b5c; color: white; }
+    .yes2 { background-color: #ff85a2; color: white; }
+    .no { background-color: #aaa; color: white; }
+
+    button:hover {
+        transform: scale(1.15);
+    }
+
+    #loveMessage {
+        margin-top: 25px;
+        font-size: 1.4em;
+        font-weight: bold;
+        min-height: 60px;
+    }
+
+    /* Floating hearts */
+    .heart {
+        position: fixed;
+        bottom: -10px;
+        font-size: 24px;
+        animation: floatUp 6s linear infinite;
+        opacity: 0.8;
+        z-index: 1;
+    }
+
+    @keyframes floatUp {
+        0% { transform: translateY(0) scale(1); opacity: 0.9; }
+        100% { transform: translateY(-110vh) scale(1.5); opacity: 0; }
+    }
+</style>
+</head>
+<body>
+
+<div class="card" id="card">
+    <h1>Sampada 💖</h1>
+    <p>Will you be my Valentine? 🥺🌹</p>
+    <button class="yes1" onclick="startLove()">Yes 😘</button>
+    <button class="yes2" onclick="startLove()">Obviously Yes 💍</button>
+    <button class="no" id="noBtn">No 😳</button>
+    <div id="loveMessage"></div>
+</div>
+
+<!-- YouTube background music -->
+<iframe id="ytplayer" width="0" height="0"
+src="https://www.youtube.com/embed/2Vv-BfVoq4g?enablejsapi=1&loop=1&playlist=2Vv-BfVoq4g"
+frameborder="0" allow="autoplay"></iframe>
+
+<script src="https://www.youtube.com/iframe_api"></script>
+<script>
+let player;
+function onYouTubeIframeAPIReady() {
+    player = new YT.Player('ytplayer');
+}
+
+const message = "Sampada… 🥰 From the moment you came into my life, everything became softer, brighter, and happier 💖 You are my favorite smile, my safest place, and my sweetest forever 💍✨ I promise endless love, laughter, and hugs that last a lifetime 🤗❤️";
+let index = 0;
+let started = false;
+
+function typeWriter() {
+    if (index < message.length) {
+        document.getElementById("loveMessage").innerHTML += message.charAt(index);
+        index++;
+        setTimeout(typeWriter, 50);
+    }
+}
+
+function startLove() {
+    if (started) return;
+    started = true;
+
+    typeWriter();
+    document.getElementById("card").style.transform = "scale(1.05)";
+    document.getElementById("card").style.boxShadow = "0 0 40px rgba(255,255,255,0.6)";
+
+    if(player) player.playVideo(); // Start YouTube music
+}
+
+// Floating hearts
+setInterval(() => {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = ["💖","💘","💕","💝"][Math.floor(Math.random()*4)];
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (Math.random() * 20 + 20) + "px";
+    heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+}, 300);
+
+// Runaway No button
+const noBtn = document.getElementById("noBtn");
+noBtn.addEventListener("mouseenter", () => {
+    const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+    const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+    noBtn.style.position = "absolute";
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+});
+</script>
+
+</body>
+</html>
